@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Products | ANEEB CHEMICALS PVT. LTD.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/sections.css" />
+  <link rel="stylesheet" href="../css/products.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--bg-chem) 100%);
+      padding: calc(var(--navbar-h) + var(--space-16)) 0 var(--space-20);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(232,160,32,0.08) 0%, transparent 60%);
+    }
+    .page-hero__content { position: relative; z-index: 1; }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 5vw, var(--text-6xl));
+      font-weight: 800; color: var(--text-white); margin-bottom: var(--space-4);
+    }
+    .page-hero p { font-size: var(--text-xl); color: var(--text-light); max-width: 540px; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-5);
+    }
+    .breadcrumb a { color: var(--accent); }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; flex-wrap: wrap; gap: var(--space-3);
+      justify-content: center; margin-bottom: var(--space-10);
+    }
+    .filter-tab {
+      padding: 0.5rem 1.5rem;
+      font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; border-radius: var(--radius-full);
+      border: 2px solid var(--border); color: var(--text-muted);
+      background: transparent; cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .filter-tab:hover, .filter-tab.active {
+      border-color: var(--accent); color: var(--accent); background: var(--accent-glow-sm);
+    }
+
+    /* Product section */
+    .prod-section { padding-block: var(--space-20); scroll-margin-top: calc(var(--navbar-h) + 8px); }
+    .prod-section:nth-child(odd) { background: var(--bg-light); }
+    .prod-section:nth-child(even) { background: #edf2f7; }
+
+    .prod-section-head {
+      display: flex; align-items: center; gap: var(--space-5);
+      margin-bottom: var(--space-10); padding-bottom: var(--space-6);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .prod-section-head__icon {
+      width: 60px; height: 60px;
+      background: var(--primary); border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--text-2xl); color: var(--accent); flex-shrink: 0;
+    }
+    .prod-section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+      font-weight: 800; color: var(--text-dark);
+    }
+    .prod-section-head p { color: var(--text-muted); font-size: var(--text-base); margin-top: var(--space-1); }
+
+    .prod-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);
+    }
+
+    .prod-card {
+      background: var(--bg-card); border-radius: var(--radius-md); overflow: hidden;
+      box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.06);
+      transition: transform var(--transition-spring), box-shadow var(--transition-base);
+      display: flex; flex-direction: column;
+    }
+    .prod-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .prod-card__img {
+      aspect-ratio: 4/3; overflow: hidden; background: var(--bg-light);
+    }
+    .prod-card__img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease-smooth);
+    }
+    .prod-card:hover .prod-card__img img { transform: scale(1.06); }
+
+    .prod-card__body { padding: var(--space-5); flex: 1; display: flex; flex-direction: column; gap: var(--space-3); }
+    .prod-card__body h4 {
+      font-family: var(--font-display); font-size: var(--text-xl);
+      font-weight: 700; color: var(--text-dark);
+    }
+    .prod-card__body p { font-size: var(--text-sm); color: var(--text-muted); line-height: 1.65; flex: 1; }
+    .prod-card__body .btn { align-self: flex-start; margin-top: auto; }
+
+    .no-img-placeholder {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; color: var(--accent); opacity: 0.3;
+      background: var(--primary); aspect-ratio: 4/3;
+    }
+
+    @media (max-width: 1024px) { .prod-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .prod-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <div class="topbar__left">
+        <span><i class="fa fa-map-marker-alt"></i> Ghaziabad - 201001, UP, India</span>
+      </div>
+      <div class="topbar__right">
+        <a href="tel:08045478219"><i class="fa fa-phone-alt"></i> 08045478219</a>
+        <a href="contact.html" class="topbar__cta">Send Inquiry</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="../index.html" class="navbar__brand">
+        <div class="navbar__logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M12 28 L20 10 L28 28" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 23 h12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="10" r="2.5" fill="var(--accent)"/>
+          </svg>
+        </div>
+        <div class="navbar__brand-text">
+          <span class="brand-name">ANEEB CHEMICALS</span>
+          <span class="brand-sub">PVT. LTD.</span>
+        </div>
+      </a>
+      <button class="navbar__toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <ul class="navbar__menu" id="navMenu">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <a href="products.html" class="nav-link active">Products <i class="fa fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="#plastering">Internal Plastering Solution</a></li>
+            <li><a href="#waterproofing">Waterproofing Solution</a></li>
+            <li><a href="#construction">Construction Chemicals</a></li>
+            <li><a href="#tile">Tile Fixing Solution</a></li>
+            <li><a href="#glass">Laminated Glass Solution</a></li>
+          </ul>
+        </li>
+        <li><a href="clients.html" class="nav-link">Our Clients</a></li>
+        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a><span>/</span><span>Our Products</span>
+      </div>
+      <h1 class="reveal-up">Our Product Range</h1>
+      <p class="reveal-up delay-1">Five specialized categories engineered for durability, performance, and sustainability across India's construction sector.</p>
+    </div>
+  </section>
+
+  <div class="container" style="padding-top: var(--space-10);">
+    <div class="filter-tabs reveal-up">
+      <button class="filter-tab active" onclick="scrollTo('#plastering')">Plastering</button>
+      <button class="filter-tab" onclick="scrollTo('#waterproofing')">Waterproofing</button>
+      <button class="filter-tab" onclick="scrollTo('#construction')">Construction</button>
+      <button class="filter-tab" onclick="scrollTo('#tile')">Tile Fixing</button>
+      <button class="filter-tab" onclick="scrollTo('#glass')">Laminated Glass</button>
+    </div>
+  </div>
+
+  <!-- 1. Internal Plastering -->
+  <section class="prod-section" id="plastering">
+    <div class="container">
+      <div class="prod-section-head reveal-up">
+        <div class="prod-section-head__icon"><i class="fa fa-layer-group"></i></div>
+        <div>
+          <h2>Internal Plastering Solution</h2>
+          <p>Comprehensive bonding and plastering systems for walls, ceilings, and interior surfaces.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card reveal-up">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/08230779/b/5/Gypsum-Bond.jpg" alt="Gypsum Bond" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Gypsum Bond</h4>
+            <p>SBR-based bonding agent applied to concrete surfaces before gypsum plaster. Improves adhesion and reduces delamination risk.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-1">
+          <div class="no-img-placeholder"><i class="fa fa-layer-group"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Bond + Gypsum Plaster One Coat</h4>
+            <p>Combined bonding and plastering product — one application gives a ready-to-paint finish, saving time and labour.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-2">
+          <div class="no-img-placeholder"><i class="fa fa-layer-group"></i></div>
+          <div class="prod-card__body">
+            <h4>Plaster Cum Putty</h4>
+            <p>Dual-purpose plastering and putty compound that delivers a smooth, crack-free finish on internal wall surfaces.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-3">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017534/b/5/Aneeb-Bond-Plus.jpg" alt="Aneeb Bond Plus" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Bond Plus</h4>
+            <p>Polymer-based bonding agent for concrete repair, waterproofing screed, and tile adhesive enhancement.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-4">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017524/b/4/Spray-90.jpg" alt="Spray 90" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Spray 90</h4>
+            <p>Contact adhesive spray for foam, fabric, carpet, laminate, and panel bonding — fast tack, strong hold.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-5">
+          <div class="no-img-placeholder"><i class="fa fa-layer-group"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Bond + Gypsum Plaster (POP)</h4>
+            <p>Ready-to-use Plaster of Paris blend with bonding additive — exceptional surface hardness and workability.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Waterproofing -->
+  <section class="prod-section" id="waterproofing">
+    <div class="container">
+      <div class="prod-section-head reveal-up">
+        <div class="prod-section-head__icon"><i class="fa fa-droplet"></i></div>
+        <div>
+          <h2>Waterproofing Solution</h2>
+          <p>Complete moisture and water ingress protection systems for roofs, terraces, basements, and foundations.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card reveal-up">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017527/b/4/Aneeb-Roof-Mate.jpg" alt="Aneeb Roof Mate" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Roof Mate</h4>
+            <p>Elastomeric waterproofing coating for flat roofs. UV-resistant, flexible, forms a seamless membrane.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-1">
+          <div class="no-img-placeholder"><i class="fa fa-droplet"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Top Roof Shield</h4>
+            <p>Advanced acrylic-based reflective roof coating providing waterproofing and thermal insulation in one coat.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-2">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017526/b/4/Aneeb-Elasto-Seal-104.jpg" alt="Aneeb Elasto Seal 104" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Elasto Seal 104</h4>
+            <p>High-elongation elastomeric sealant for expansion joints, cracks, and movement joints in concrete structures.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-3">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06521416/b/4/All-Rounder-Waterproofing-Coating.jpg" alt="All Rounder" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>All Rounder Waterproofing Coating</h4>
+            <p>Versatile, brush-applied coating suitable for concrete, masonry, and asbestos sheets in all conditions.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-4">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017525/b/4/Aneeb-Crete.jpg" alt="Aneeb Crete" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Crete</h4>
+            <p>Polymer-modified mortar additive that increases concrete density and reduces permeability to water.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-5">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017536/b/4/Aneeb-AW-plus-Waterproofing-Compound.jpg" alt="Aneeb AW Plus" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb AW Plus Compound</h4>
+            <p>Crystalline waterproofing compound that penetrates concrete and permanently seals capillary pores.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Construction Chemicals -->
+  <section class="prod-section" id="construction">
+    <div class="container">
+      <div class="prod-section-head reveal-up">
+        <div class="prod-section-head__icon"><i class="fa fa-flask"></i></div>
+        <div>
+          <h2>Construction Chemical Solution</h2>
+          <p>Speciality chemicals for structural integrity, priming, and surface preparation.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card reveal-up">
+          <div class="no-img-placeholder"><i class="fa fa-flask"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Crystal Seal Waterproofing</h4>
+            <p>Crystalline waterproofing system applied to positive or negative side of concrete. Self-seals new cracks over time.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-1">
+          <div class="no-img-placeholder"><i class="fa fa-tint"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Pump Primer</h4>
+            <p>High-build primer for pump application on concrete and masonry. Seals porous surfaces and improves coating adhesion.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Tile Fixing -->
+  <section class="prod-section" id="tile">
+    <div class="container">
+      <div class="prod-section-head reveal-up">
+        <div class="prod-section-head__icon"><i class="fa fa-th-large"></i></div>
+        <div>
+          <h2>Tile Fixing Solution</h2>
+          <p>Professional-grade adhesives, grouts, and cleaners for ceramic, vitrified, and natural stone tiles.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card reveal-up">
+          <div class="no-img-placeholder"><i class="fa fa-th-large"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb Bond Plus Tile Adhesive</h4>
+            <p>Polymer-modified tile adhesive for interior and exterior tile fixing on floors and walls. Excellent open time.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-1">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06521417/b/4/Glomax-Tile-Cleaner.jpg" alt="Glomax Tile Cleaner" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Glomax Tile Cleaner</h4>
+            <p>Acid-based tile cleaner that effectively removes cement haze, efflorescence, and hard water stains from tiles.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-2">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017529/b/4/Aneeb-Epoxy-Grout.jpg" alt="Aneeb Epoxy Grout" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Epoxy Grout (Premium)</h4>
+            <p>Two-component epoxy grout with exceptional chemical and stain resistance. Ideal for kitchens, labs, and hospitals.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-3">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06017530/b/4/Aneeb-Epoxy-Grout.jpg" alt="Aneeb Epoxy Grout Standard" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Aneeb Epoxy Grout (Standard)</h4>
+            <p>Standard two-component epoxy grout for general tile joints — strong, durable, and non-shrink formulation.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+        <div class="prod-card reveal-up delay-4">
+          <div class="prod-card__img">
+            <img src="https://cpimg.tistatic.com/06481679/b/5/Tile-Grout.jpg" alt="Tile Grout" loading="lazy"/>
+          </div>
+          <div class="prod-card__body">
+            <h4>Tile Grout</h4>
+            <p>Ready-mix cement-based grout available in multiple colours for residential and commercial tile applications.</p>
+            <a href="contact.html" class="btn btn--sm btn--primary">Send Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Laminated Glass -->
+  <section class="prod-section" id="glass">
+    <div class="container">
+      <div class="prod-section-head reveal-up">
+        <div class="prod-section-head__icon"><i class="fa fa-square"></i></div>
+        <div>
+          <h2>Laminated Glass Solution</h2>
+          <p>India's first indigenous UV-cured laminated glass inter-layer — developed under the Make in India initiative.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="prod-card reveal-up" style="grid-column: 1 / -1; max-width: 520px;">
+          <div class="no-img-placeholder" style="aspect-ratio: 16/7;"><i class="fa fa-square"></i></div>
+          <div class="prod-card__body">
+            <h4>Aneeb GCF Laminated Glass Solution</h4>
+            <p>Photo cross-linked inter-layer using UV-curing technology developed with CCSU Chemistry Department and DST, Govt. of India. Aneeb GCF offers safe breakage & fragment retention, IS-standard compliance, energy-efficient production, and superior durability over conventional PVB inter-layers. Tested by a Government-approved test laboratory.</p>
+            <div style="display:flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-2);">
+              <span class="badge" style="background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border);"><i class="fa fa-flag"></i> Make in India</span>
+              <span class="badge" style="background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border);"><i class="fa fa-certificate"></i> IS Certified</span>
+              <span class="badge" style="background: var(--accent-glow); color: var(--accent); border: 1px solid var(--border);"><i class="fa fa-leaf"></i> UV-Cured</span>
+            </div>
+            <a href="contact.html" class="btn btn--sm btn--primary" style="margin-top: var(--space-4);">Send Inquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="cta-banner__bg"></div>
+    <div class="container cta-banner__inner reveal-up">
+      <div>
+        <h2>Need a Custom Formulation?</h2>
+        <p>Our technical team can develop tailored solutions for your specific project requirements.</p>
+      </div>
+      <div class="cta-banner__actions">
+        <a href="contact.html" class="btn btn--primary btn--lg">Discuss Requirements</a>
+        <a href="https://tiimg.tistatic.com/new_website1/catalogs/88626/download-brochure.pdf" class="btn btn--outline btn--lg" target="_blank" rel="noopener">
+          <i class="fa fa-download"></i> Download Brochure
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__main">
+      <div class="container footer__grid">
+        <div class="footer__col footer__brand">
+          <div class="footer__logo">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M12 28 L20 10 L28 28" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 23 h12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="10" r="2.5" fill="var(--accent)"/>
+            </svg>
+            <div><span class="brand-name">ANEEB CHEMICALS</span><span class="brand-sub">PVT. LTD.</span></div>
+          </div>
+          <p>Innovative construction and adhesive chemical solutions from Delhi-NCR since 2014.</p>
+          <p class="footer__gst"><strong>GST:</strong> 09AAMCA8213G1ZL</p>
+        </div>
+        <div class="footer__col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Our Products</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Products</h5>
+          <ul>
+            <li><a href="#plastering">Plastering Solutions</a></li>
+            <li><a href="#waterproofing">Waterproofing</a></li>
+            <li><a href="#construction">Construction Chemicals</a></li>
+            <li><a href="#tile">Tile Fixing</a></li>
+            <li><a href="#glass">Laminated Glass</a></li>
+          </ul>
+        </div>
+        <div class="footer__col footer__contact">
+          <h5>Contact</h5>
+          <ul>
+            <li><i class="fa fa-map-marker-alt"></i><span>Khasra No 1250, Village Morta, Ghaziabad – 201001, UP</span></li>
+            <li><i class="fa fa-phone-alt"></i><a href="tel:08045478219">08045478219</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 ANEEB CHEMICALS PVT. LTD. All Rights Reserved.</p>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);margin-top:var(--space-1);">Made with <span style="color:var(--accent);">♥</span> by <a href="https://www.linkedin.com/in/naveen-singh-5865382a4/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">Naveen Singh</a></p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"><i class="fa fa-chevron-up"></i></button>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    // Filter tab scroll
+    function scrollTo(id) {
+      const el = document.querySelector(id);
+      if (el) {
+        const navH = 64;
+        const top = el.getBoundingClientRect().top + window.scrollY - navH - 8;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>

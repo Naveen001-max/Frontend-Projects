@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | ANEEB CHEMICALS PVT. LTD.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/navbar.css" />
+  <link rel="stylesheet" href="../css/sections.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/footer.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--bg-chem) 100%);
+      padding: calc(var(--navbar-h) + var(--space-16)) 0 var(--space-20);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(232,160,32,0.08) 0%, transparent 60%);
+    }
+    .page-hero__content { position: relative; z-index: 1; }
+    .page-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 5vw, var(--text-6xl));
+      font-weight: 800; color: var(--text-white); margin-bottom: var(--space-4);
+    }
+    .page-hero p { font-size: var(--text-xl); color: var(--text-light); max-width: 520px; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--text-muted); margin-bottom: var(--space-5);
+    }
+    .breadcrumb a { color: var(--accent); }
+
+    /* Contact Layout */
+    .contact-section { background: var(--bg-light); padding-block: var(--space-24); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-12); align-items: start;
+    }
+
+    /* Info sidebar */
+    .contact-info { display: flex; flex-direction: column; gap: var(--space-5); }
+
+    .contact-info-card {
+      background: var(--primary); border: 1px solid var(--border-dark);
+      border-radius: var(--radius-md); padding: var(--space-6);
+      display: flex; gap: var(--space-4); align-items: flex-start;
+      transition: border-color var(--transition-base);
+    }
+    .contact-info-card:hover { border-color: var(--accent); }
+    .contact-info-card__icon {
+      width: 44px; height: 44px; border-radius: var(--radius);
+      background: var(--accent-glow); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--text-lg); color: var(--accent); flex-shrink: 0;
+    }
+    .contact-info-card__body h4 {
+      font-family: var(--font-display); font-size: var(--text-base); font-weight: 700;
+      color: var(--text-white); margin-bottom: var(--space-1);
+    }
+    .contact-info-card__body p, .contact-info-card__body a {
+      font-size: var(--text-sm); color: var(--text-light); line-height: 1.65;
+    }
+    .contact-info-card__body a:hover { color: var(--accent); }
+
+    /* Form card */
+    .contact-form-card {
+      background: var(--primary); border: 1px solid var(--border-dark);
+      border-radius: var(--radius-lg); padding: var(--space-10);
+    }
+    .contact-form-card h3 {
+      font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 800;
+      color: var(--text-white); margin-bottom: var(--space-2);
+    }
+    .contact-form-card > p { color: var(--text-light); font-size: var(--text-sm); margin-bottom: var(--space-8); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .form-group { margin-bottom: var(--space-5); }
+    .form-group label {
+      display: block; font-size: var(--text-sm); font-weight: 600;
+      color: var(--text-light); margin-bottom: var(--space-2);
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 0.875rem 1.125rem;
+      background: rgba(255,255,255,0.05); border: 1.5px solid var(--border-dark);
+      border-radius: var(--radius); color: var(--text-white); font-size: var(--text-base);
+      outline: none; transition: border-color var(--transition-fast), background var(--transition-fast);
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--accent); background: rgba(232,160,32,0.04);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--primary); color: var(--text-white); }
+
+    .form-success {
+      display: none; padding: var(--space-5); border-radius: var(--radius);
+      background: rgba(232, 160, 32, 0.1); border: 1px solid var(--accent);
+      color: var(--accent); text-align: center; font-weight: 600; margin-top: var(--space-4);
+    }
+
+    /* Map placeholder */
+    .map-section { padding-block: 0; }
+    .map-embed {
+      width: 100%; height: 360px; border: 0;
+      filter: grayscale(0.4) contrast(1.05);
+      border-radius: var(--radius-lg); overflow: hidden;
+      display: block;
+    }
+    .map-wrap { padding: var(--space-10) 0; background: var(--primary); }
+
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-card { padding: var(--space-6); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <div class="topbar__left">
+        <span><i class="fa fa-map-marker-alt"></i> Ghaziabad - 201001, UP, India</span>
+      </div>
+      <div class="topbar__right">
+        <a href="tel:08045478219"><i class="fa fa-phone-alt"></i> 08045478219</a>
+        <a href="contact.html" class="topbar__cta">Send Inquiry</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="../index.html" class="navbar__brand">
+        <div class="navbar__logo-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M12 28 L20 10 L28 28" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 23 h12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="10" r="2.5" fill="var(--accent)"/>
+          </svg>
+        </div>
+        <div class="navbar__brand-text">
+          <span class="brand-name">ANEEB CHEMICALS</span>
+          <span class="brand-sub">PVT. LTD.</span>
+        </div>
+      </a>
+      <button class="navbar__toggle" id="navToggle"><span></span><span></span><span></span></button>
+      <ul class="navbar__menu" id="navMenu">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li class="nav-dropdown">
+          <a href="products.html" class="nav-link">Products <i class="fa fa-chevron-down"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="products.html#plastering">Internal Plastering Solution</a></li>
+            <li><a href="products.html#waterproofing">Waterproofing Solution</a></li>
+            <li><a href="products.html#construction">Construction Chemicals</a></li>
+            <li><a href="products.html#tile">Tile Fixing Solution</a></li>
+            <li><a href="products.html#glass">Laminated Glass Solution</a></li>
+          </ul>
+        </li>
+        <li><a href="clients.html" class="nav-link">Our Clients</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container page-hero__content">
+      <div class="breadcrumb"><a href="../index.html">Home</a><span>/</span><span>Contact Us</span></div>
+      <h1 class="reveal-up">Get In Touch</h1>
+      <p class="reveal-up delay-1">We respond to all inquiries within 24 hours. Reach out for quotes, bulk orders, or product guidance.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-grid">
+
+      <!-- Info -->
+      <div class="contact-info reveal-left">
+        <div class="contact-info-card">
+          <div class="contact-info-card__icon"><i class="fa fa-map-marker-alt"></i></div>
+          <div class="contact-info-card__body">
+            <h4>Manufacturing Address</h4>
+            <p>Khasra No 1250, Village Morta,<br/>Near Morta Road, Industrial Area,<br/>Ghaziabad – 201001, Uttar Pradesh, India</p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-card__icon"><i class="fa fa-building"></i></div>
+          <div class="contact-info-card__body">
+            <h4>Registered Address</h4>
+            <p>61/5, Jagriti Vihar, Meerut,<br/>Uttar Pradesh, India</p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-card__icon"><i class="fa fa-phone-alt"></i></div>
+          <div class="contact-info-card__body">
+            <h4>Phone</h4>
+            <a href="tel:08045478219">08045478219</a>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-card__icon"><i class="fa fa-user-tie"></i></div>
+          <div class="contact-info-card__body">
+            <h4>Key Contact</h4>
+            <p>Mr. Himanshu Garg<br/><span style="color: var(--accent); font-size: 0.8rem;">Marketing Manager</span></p>
+          </div>
+        </div>
+        <div class="contact-info-card">
+          <div class="contact-info-card__icon"><i class="fa fa-id-badge"></i></div>
+          <div class="contact-info-card__body">
+            <h4>GST Number</h4>
+            <p>09AAMCA8213G1ZL</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-card reveal-right">
+        <h3>Send an Inquiry</h3>
+        <p>Fill out the form and our team will respond with pricing and product details within 24 hours.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="company">Company Name</label>
+            <input type="text" id="company" placeholder="Your company" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" placeholder="+91 XXXXX XXXXX" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="you@company.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="product">Product Interest</label>
+          <select id="product">
+            <option value="">Select a product category</option>
+            <option>Internal Plastering Solution</option>
+            <option>Waterproofing Solution</option>
+            <option>Construction Chemicals</option>
+            <option>Tile Fixing Solution</option>
+            <option>Laminated Glass Solution (Aneeb GCF)</option>
+            <option>Multiple Products / Bulk Order</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message *</label>
+          <textarea id="message" placeholder="Describe your requirement — quantity, application, site location…" required></textarea>
+        </div>
+
+        <button class="btn btn--primary" style="width: 100%; justify-content: center;" onclick="handleSubmit(event)">
+          <i class="fa fa-paper-plane"></i> Send Inquiry
+        </button>
+
+        <div class="form-success" id="formSuccess">
+          <i class="fa fa-check-circle" style="margin-right: 8px;"></i>
+          Thank you! We have received your inquiry and will reply within 24 hours. For urgent queries call <a href="tel:08045478219" style="color: var(--accent);">08045478219</a>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map -->
+  <div class="map-wrap">
+    <div class="container">
+      <iframe
+        class="map-embed"
+        title="Aneeb Chemicals Location"
+        src="https://maps.google.com/maps?q=Morta+Industrial+Area+Ghaziabad+UP+India&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer__main">
+      <div class="container footer__grid">
+        <div class="footer__col footer__brand">
+          <div class="footer__logo">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+              <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M12 28 L20 10 L28 28" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14 23 h12" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="10" r="2.5" fill="var(--accent)"/>
+            </svg>
+            <div><span class="brand-name">ANEEB CHEMICALS</span><span class="brand-sub">PVT. LTD.</span></div>
+          </div>
+          <p>Innovative construction and adhesive chemical solutions from Delhi-NCR since 2014.</p>
+          <p class="footer__gst"><strong>GST:</strong> 09AAMCA8213G1ZL</p>
+        </div>
+        <div class="footer__col">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="products.html">Our Products</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h5>Products</h5>
+          <ul>
+            <li><a href="products.html#plastering">Plastering Solutions</a></li>
+            <li><a href="products.html#waterproofing">Waterproofing</a></li>
+            <li><a href="products.html#construction">Construction Chemicals</a></li>
+            <li><a href="products.html#tile">Tile Fixing</a></li>
+            <li><a href="products.html#glass">Laminated Glass</a></li>
+          </ul>
+        </div>
+        <div class="footer__col footer__contact">
+          <h5>Contact</h5>
+          <ul>
+            <li><i class="fa fa-map-marker-alt"></i><span>Khasra No 1250, Village Morta, Ghaziabad – 201001, UP</span></li>
+            <li><i class="fa fa-phone-alt"></i><a href="tel:08045478219">08045478219</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 ANEEB CHEMICALS PVT. LTD. All Rights Reserved.</p>
+        <p style="font-size:var(--text-xs);color:var(--text-muted);margin-top:var(--space-1);">Made with <span style="color:var(--accent);">♥</span> by <a href="https://www.linkedin.com/in/naveen-singh-5865382a4/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">Naveen Singh</a></p>
+        <div class="footer__legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"><i class="fa fa-chevron-up"></i></button>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/navbar.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const name    = document.getElementById('name').value.trim();
+      const phone   = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !phone || !message) {
+        alert('Please fill in Name, Phone, and Message fields.');
+        return;
+      }
+      const s = document.getElementById("formSuccess"); s.style.display = "block"; setTimeout(() => { s.style.opacity = "1"; s.style.transform = "translateY(0)"; }, 10);
+      // In a real deployment, POST to a backend endpoint here
+    }
+  </script>
+</body>
+</html>

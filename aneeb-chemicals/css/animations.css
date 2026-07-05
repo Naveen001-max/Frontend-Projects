@@ -1,0 +1,108 @@
+/* ============================================
+   ANIMATIONS & TRANSITIONS
+   ============================================ */
+
+/* ---- Scroll Reveal Base States ---- */
+.reveal-up,
+.reveal-left,
+.reveal-right,
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal-up    { transform: translateY(40px); }
+.reveal-left  { transform: translateX(-50px); }
+.reveal-right { transform: translateX(50px); }
+.reveal-fade  { transform: none; }
+
+.reveal-up.in-view,
+.reveal-left.in-view,
+.reveal-right.in-view,
+.reveal-fade.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ---- Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up, .reveal-left, .reveal-right, .reveal-fade {
+    opacity: 1; transform: none; transition: none;
+  }
+  .molecule-svg { animation: none; }
+  .hero__scroll-cue span::after { animation: none; }
+  .trust-bar__track { animation: none; }
+}
+
+/* ---- Hero canvas ---- */
+.hero__bg-canvas canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---- Back to Top ---- */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  width: 44px; height: 44px;
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  box-shadow: var(--shadow-accent);
+  z-index: 400;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--transition-base), transform var(--transition-spring);
+  border: none;
+}
+.back-to-top.visible { opacity: 1; transform: translateY(0); }
+.back-to-top:hover   { background: var(--accent-dark); transform: translateY(-3px) scale(1.08); }
+
+/* ---- Pulse ring ---- */
+@keyframes pulseRing {
+  0%   { box-shadow: 0 4px 20px rgba(143,188,143,0.45), 0 0 0 0 rgba(143,188,143,0.4); }
+  70%  { box-shadow: 0 4px 20px rgba(143,188,143,0.45), 0 0 0 16px rgba(143,188,143,0); }
+  100% { box-shadow: 0 4px 20px rgba(143,188,143,0.45), 0 0 0 0 rgba(143,188,143,0); }
+}
+
+/* ---- Page transition overlay ---- */
+.page-transition-overlay {
+  position: fixed; inset: 0;
+  background: var(--primary);
+  z-index: 9999; pointer-events: none;
+  opacity: 0; transition: opacity 0.35s var(--ease-smooth);
+}
+.page-transition-overlay.active { opacity: 1; }
+
+/* ---- Number counter ---- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Tooltip ---- */
+.whatsapp-fab__tooltip {
+  position: absolute;
+  right: calc(100% + 10px); top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: var(--text-white);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-dark);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+.whatsapp-fab:hover .whatsapp-fab__tooltip { opacity: 1; }
