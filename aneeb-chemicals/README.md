@@ -5,8 +5,8 @@ A professional, fully responsive website for ANEEB CHEMICALS PVT. LTD., a manufa
 ## 🎨 Design Theme
 
 Chemical-industry inspired visual identity:
-- **Deep navy (#0b1c2e)** — industrial authority and trust
-- **Electric teal (#00c8b4)** — chemical precision, freshness, and innovation
+- **sage green #8fbc8f** — industrial authority and trust
+- **creamy off-white #f7f5f0** — chemical precision, freshness, and innovation
 - Molecular/hexagon motifs, animated SVG molecule graphics, chemistry-inspired iconography
 - Smooth, professional transitions throughout (scroll reveals, hover states, crossfade hero slider)
 
